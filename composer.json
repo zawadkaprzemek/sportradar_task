@@ -1,0 +1,20 @@
+{
+    "name": "zawadkaprzemek/football-scoreboard",
+    "description": "Football World Cup Score Board",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Zawadkaprzemek\\FootballScoreboard\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Przemysław Zawadka",
+            "email": "zawadkaprzemek@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    }
+}
