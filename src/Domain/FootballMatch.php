@@ -36,4 +36,16 @@ final class FootballMatch
         return $this->awayScore;
     }
 
+    public function updateScore(int $homeScore, int $awayScore): void
+    {
+        if ($homeScore < 0 || $awayScore < 0) {
+        throw new \InvalidArgumentException(
+            'Team scores cannot be negative.'
+            );
+        }
+
+        $this->homeScore = $homeScore;
+        $this->awayScore = $awayScore;
+    }
+
 }
