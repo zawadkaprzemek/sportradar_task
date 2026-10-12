@@ -136,7 +136,6 @@ final class FootballMatchTest extends TestCase
 
         self::assertSame(1, $match->getHomeScore());
         self::assertSame(1, $match->getAwayScore());
-
     }
     
 }
