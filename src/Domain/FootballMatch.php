@@ -13,8 +13,7 @@ final class FootballMatch
         private readonly int $id,
         private readonly string $homeTeam,
         private readonly string $awayTeam,
-    )
-    {
+    ){
         if (trim($homeTeam) === '' || trim($awayTeam) === '') {
             throw new \InvalidArgumentException('The team name cannot be empty.');
         }

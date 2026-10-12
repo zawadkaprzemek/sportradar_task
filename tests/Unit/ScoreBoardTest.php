@@ -29,6 +29,19 @@ final class ScoreBoardTest extends TestCase
 	    self::assertSame(2, $secondId);
 	}
 
+	public function testCanFinishGame(): void
+	{
+	    $scoreBoard = new ScoreBoard();
+
+	    $matchId = $scoreBoard->startGame('Poland', 'Germany');
+
+	    $scoreBoard->finishGame($matchId);
+
+	    $this->expectException(\InvalidArgumentException::class);
+
+	    $scoreBoard->finishGame($matchId);
+	}
+
 	public function testCannotFinishNonExistingGame(): void
 	{
 	    $scoreBoard = new ScoreBoard();
@@ -182,5 +195,29 @@ final class ScoreBoardTest extends TestCase
 	    self::assertSame('Brazil', $summary[0]['homeTeam']);
 	}
 
+	public function testCannotUpdateFinishedGame(): void
+	{
+		$scoreBoard = new ScoreBoard();
 
+		$match1Id = $scoreBoard->startGame('Poland', 'Germany');
+
+	    $scoreBoard->finishGame($match1Id);
+
+	    $this->expectException(\InvalidArgumentException::class);
+
+	    $scoreBoard->updateScore($match1Id, 2, 0);
+	}
+
+	public function testMatchIdsAreNotReused(): void
+	{
+		$scoreBoard = new ScoreBoard();
+
+		$matchId = $scoreBoard->startGame('Poland', 'Germany');
+
+	    $scoreBoard->finishGame($matchId);
+
+	    $match2Id = $scoreBoard->startGame('France', 'Brazil');
+
+	    self::assertSame(2, $match2Id);
+	}
 }

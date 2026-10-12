@@ -39,37 +39,30 @@ final class ScoreBoard
 		unset($this->matches[$matchId]);
 	}
 
-	public function testCanFinishGame(): void
-	{
-	    $scoreBoard = new ScoreBoard();
-
-	    $matchId = $scoreBoard->startGame('Poland', 'Germany');
-
-	    $scoreBoard->finishGame($matchId);
-
-	    $this->expectException(\InvalidArgumentException::class);
-
-	    $scoreBoard->finishGame($matchId);
-	}
-
 	public function updateScore(int $matchId, int $homeScore, int $awayScore): void
 	{
 		if(!isset($this->matches[$matchId])) {
-			throw new \InvalidArgumentException(
-                'Match with the given ID does not exist.'
-            );
+			throw new \InvalidArgumentException('Match with the given ID does not exist.');
 		}
 
 		$this->matches[$matchId]->updateScore($homeScore, $awayScore);
 	}
 
+	/**
+	 * @return list<array{
+	 *     homeTeam: string,
+	 *     awayTeam: string,
+	 *     homeScore: int,
+	 *     awayScore: int
+	 * }>
+	 */
 	public function getSummary(): array
 	{
 		$summary = [];
 		$matches = $this->matches;
 
 		usort($matches, function(FootballMatch $match1, FootballMatch $match2): int {
-			return ($match2->getScoreSummary() <=> $match1->getScoreSummary()) 
+			return ($match2->getScoreSummary() <=> $match1->getScoreSummary())
 			?: ($match2->getId() <=> $match1->getId());
 		});
 
