@@ -6,19 +6,22 @@ namespace App\Domain;
 
 final class FootballMatch
 {
-    private int $homeScore = 0; 
-    private int $awayScore = 0; 
+    private int $homeScore = 0;
+    private int $awayScore = 0;
 
     public function __construct(
         private readonly int $id,
         private readonly string $homeTeam,
         private readonly string $awayTeam,
-    ){
-        if (trim($homeTeam) === '' || trim($awayTeam) === '') {
+    ) {
+        $trimmedHomeTeam = trim($homeTeam);
+        $trimmedAwayTeam = trim($awayTeam);
+
+        if ($trimmedHomeTeam === '' || $trimmedAwayTeam === '') {
             throw new \InvalidArgumentException('The team name cannot be empty.');
         }
 
-        if (strtolower(trim($homeTeam)) === strtolower(trim($awayTeam))) {
+        if (strtolower($trimmedHomeTeam) === strtolower($trimmedAwayTeam)) {
             throw new \InvalidArgumentException(
                 'The match must be played by two different teams.'
             );
